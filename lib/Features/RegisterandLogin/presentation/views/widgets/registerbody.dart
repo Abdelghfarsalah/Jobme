@@ -20,9 +20,10 @@ class _registerbodyState extends State<registerbody> {
   late String? email;
 
   late String? password;
-
+  bool passwordornot = true;
+  bool passwordornot1 = true;
   late String? confirm;
-  GlobalKey<FormState> keyform=GlobalKey();
+  GlobalKey<FormState> keyform = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -78,7 +79,8 @@ class _registerbodyState extends State<registerbody> {
                     boxIcon(
                         onTap: () {},
                         icon: const Image(
-                            image: AssetImage('assets/images/Apple - icon.png'))),
+                            image:
+                                AssetImage('assets/images/Apple - icon.png'))),
                   ],
                 ),
                 Row(
@@ -128,11 +130,11 @@ class _registerbodyState extends State<registerbody> {
                 ),
                 customtextfiled(
                   obscureText: false,
-                  onChanged: (data){
-                    name=data;
+                  onChanged: (data) {
+                    name = data;
                   },
                   validator: (k) {
-                    if(k!.isEmpty){
+                    if (k!.isEmpty) {
                       return 'Please name is required';
                     }
                   },
@@ -155,12 +157,14 @@ class _registerbodyState extends State<registerbody> {
                 ),
                 customtextfiled(
                   obscureText: false,
-                  onChanged: (data){
-                    email=data;
+                  onChanged: (data) {
+                    email = data;
                   },
-                  validator: (k) {if(k!.isEmpty){
+                  validator: (k) {
+                    if (k!.isEmpty) {
                       return 'Please Email is required';
-                    }},
+                    }
+                  },
                   icon: const Icon(FontAwesomeIcons.envelope),
                   hint: 'Enter your Email',
                 ),
@@ -179,12 +183,25 @@ class _registerbodyState extends State<registerbody> {
                   ),
                 ),
                 customtextfiled(
-                  obscureText: false,onChanged: (data){
-                    password=data;
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        passwordornot = !passwordornot;
+                      });
+                    },
+                    icon: passwordornot
+                        ? Icon(FontAwesomeIcons.eyeSlash)
+                        : Icon(FontAwesomeIcons.eye),
+                  ),
+                  obscureText: passwordornot,
+                  onChanged: (data) {
+                    password = data;
                   },
-                  validator: (k) {if(k!.isEmpty){
+                  validator: (k) {
+                    if (k!.isEmpty) {
                       return 'Please password is required';
-                    }},
+                    }
+                  },
                   icon: const Icon(FontAwesomeIcons.lock),
                   hint: 'Enter your Password',
                 ),
@@ -203,51 +220,76 @@ class _registerbodyState extends State<registerbody> {
                   ),
                 ),
                 customtextfiled(
-                  obscureText: false,
-                  onChanged: (data){
-                    confirm=data;
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        passwordornot1 =! passwordornot1;
+                      });
+                    },
+                    icon: passwordornot1
+                        ? Icon(FontAwesomeIcons.eyeSlash)
+                        : Icon(FontAwesomeIcons.eye),
+                  ),
+                  obscureText: passwordornot1,
+                  onChanged: (data) {
+                    confirm = data;
                   },
-                  validator: (k) {if(k!.isEmpty){
+                  validator: (k) {
+                    if (k!.isEmpty) {
                       return 'Please confirm password is required';
-                    }},
+                    }
+                  },
                   icon: const Icon(FontAwesomeIcons.lock),
                   hint: 'Enter your Confirm Password',
                 ),
-              const SizedBox(
-                height: 30,
-              ),
-              custombuttonnoarrow(name: 'Register', onTap: (){
-                if(keyform.currentState!.validate())
-                {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const CompleteRegistration1()));
-                }
-              }, width: 385)
-              ,const SizedBox(
-                height: 30,
-              ), 
-              const Text(
-                      'Have account ?',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
-                          color: Color(0xff6C757D)),
-                    ),
-            TextButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>const loginpage()));
-            }, child: const Text(
-                      'Login',
-                      style: TextStyle(
+                const SizedBox(
+                  height: 30,
+                ),
+                custombuttonnoarrow(
+                    name: 'Register',
+                    onTap: () {
+                      if (keyform.currentState!.validate()) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const CompleteRegistration1()));
+                      }
+                    },
+                    width: 385),
+                const SizedBox(
+                  height: 30,
+                ),
+                const Text(
+                  'Have account ?',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Poppins',
+                      color: Color(0xff6C757D)),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const loginpage()));
+                  },
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(
                         decoration: TextDecoration.underline,
                         decorationStyle: TextDecorationStyle.solid,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
-                          color:kcolor),
-                    ),),const SizedBox(
-                height: 30,
-              ), 
-            ],
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Poppins',
+                        color: kcolor),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+              ],
             ),
           ),
         ),
